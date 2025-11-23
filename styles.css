@@ -1,0 +1,161 @@
+/* --- Global Reset and Body Styling --- */
+:root {
+    --primary-color: #eaeaea; /* Indigo */
+    --background-dark: #1f2937; /* Dark Gray */
+    --card-bg: rgba(57, 76, 103, 0.735); /* Semi-transparent dark */
+    --text-light: #f3f4f6; /* Off-White */
+    --slider-track: #4b5563; /* Medium Gray */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden; /* Hide scrollbars */
+}
+
+/* --- Canvas Styling (for 3D visual) --- */
+#c {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Keep it behind the UI */
+}
+
+/* --- Main UI Container Styling --- */
+.boxltui {
+    position: fixed; /* Relative to flow, but on top of canvas */
+    z-index: 10;
+    background-color: var(--card-bg);
+    backdrop-filter: blur(8px); /* Blur background for a modern feel */
+    border-radius: 16px;
+    padding: 24px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(243, 244, 246, 0.1);
+    top: 3px;
+}
+
+/* Flex layout for control rows */
+.disflex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.disflex p {
+    font-weight: 500;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+/* --- Standard Slider (Intensity) Styling --- */
+.slider {
+    -webkit-appearance: none;
+    width: 200px;
+    height: 8px;
+    background: var(--slider-track);
+    outline: none;
+    opacity: 0.9;
+    transition: opacity .2s;
+    border-radius: 4px;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+/* Slider Thumb (Webkit/Chrome/Safari) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transition: background 0.1s;
+}
+
+/* Slider Thumb (Firefox) */
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transition: background 0.1s;
+}
+
+/* --- Custom Circular Color Slider Styling --- */
+.slidercolorconatiner {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    cursor: pointer;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#circle {
+    width: 53px;
+    height: 53px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #FF0000, #FFFF00, #00FF00, #00FFFF, #0000FF, #FF00FF, #FF0000); /* Rainbow gradient */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Effect on hover */
+.slidercolorconatiner:hover #circle {
+    transform: scale(1.05);
+}
+
+#innercircle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--background-dark); /* Dark center */
+    border: 3px solid var(--text-light); /* Highlight border */
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+/* Slider dot to indicate selection */
+#slider {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the dot relative to the top edge */
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--primary-color); /* Bright indicator */
+    border: 2px solid var(--text-light);
+    box-shadow: 0 0 5px var(--primary-color);
+    transition: background-color 0.3s, transform 0.3s;
+    /* Note: In JavaScript, you'd move this dot based on the hidden range input's value */
+}
